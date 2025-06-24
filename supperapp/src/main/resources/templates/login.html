@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOGIN</title>
+
+  <link rel="icon" type="image/x-icon" href="/admin/dist/img/AdminLTELogo.png">
+
+  <link href="/webjars/bootstrap/4.6.2/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('/admin/dist/img/photo3.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  </style>
+</head>
+
+<body>
+<section class="h-100">
+  <div class="container h-100">
+    <div class="row justify-content-sm-center h-100">
+      <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9" style="height: 100vh;">
+        <div class="text-center my-5">
+          <h3></h3>
+        </div>
+        <div class="card shadow-lg">
+          <div class="card-body p-5">
+            <h1 class="fs-4 card-title fw-bold mb-4 text-center">LOGIN</h1>
+
+            <!-- Hiển thị lỗi login -->
+            <div th:if="${param.error}" class="alert alert-danger text-center">
+              Sai thông tin đăng nhập!
+            </div>
+
+            <div th:if="${param.logout}" class="alert alert-success text-center">
+              Bạn đã đăng xuất thành công!
+            </div>
+
+            <form th:action="@{/login}" method="post" class="needs-validation" novalidate autocomplete="off">
+              <div class="mb-3">
+                <label class="mb-2 text-muted" for="username">Username</label>
+                <input id="username" type="text" class="form-control" name="username" required autofocus>
+                <div class="invalid-feedback">Username không hợp lệ</div>
+              </div>
+
+              <div class="mb-3">
+                <label class="text-muted" for="password">Password</label>
+                <input id="password" type="password" class="form-control" name="password" required>
+                <div class="invalid-feedback">Password không được để trống</div>
+              </div>
+
+              <div class="mb-3 mt-3">
+                <button type="submit" class="btn btn-primary w-100 p-2">Đăng nhập</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

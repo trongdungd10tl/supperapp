@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/x-icon" href="/admin/dist/img/photo1.png">
+
+    <title>CDN STORE</title>
+    <!-- Custom fonts for this template-->
+    <link rel="stylesheet" href="/admin/webjars/bootstrap-icons/1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    <link href="/admin/webjars/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/admin/webjars/bootstrap/4.6.2/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link href="/admin/webjars/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"
+          type="text/css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/admin/webjars/select2/4.0.13/css/select2.min.css" type="text/css"/>
+    <link rel="stylesheet" href="/admin/vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css" type="text/css"/>
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="/admin/webjars/sweetalert2__theme-bootstrap-4/5.0.15/bootstrap-4.min.css">
+    <link href="/admin/webjars/AdminLTE/3.2.0/dist/css/adminlte.min.css" rel="stylesheet">
+
+    <style>
+        /*css cho select2 resposive*/
+        span.select2-container {
+            width: unset !important;
+        }
+
+        span.select2-selection {
+            height: 37.6px !important; /* Hoặc bạn có thể thay đổi giá trị này để phù hợp với thiết kế của bạn */
+            padding: 0.45rem 0.75rem !important
+        }
+
+        ul.select2-selection__rendered li {
+            margin-top: 0px !important;
+        }
+
+        .select2-selection.select2-selection--single {
+            height: 31px !important;
+        }
+    </style>
+    <!-- jQuery -->
+    <script src="/admin/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/admin/webjars/bootstrap/4.6.2/js/bootstrap.bundle.min.js"></script>
+    <!-- Select2 -->
+    <script src="/admin/webjars/select2/4.0.13/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="/admin/webjars/moment/2.29.4/min/moment.min.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="/admin/webjars/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="/admin/webjars/sweetalert2/11.7.32/dist/sweetalert2.min.js"></script>
+    <!-- AdminLTE -->
+    <script src="/admin/webjars/AdminLTE/3.2.0/dist/js/adminlte.js"></script>
+    <!-- OPTIONAL SCRIPTS -->
+    <link href="/admin/webjars/AdminLTE/3.2.0/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
+    <style>
+        /*css cho select2 resposive*/
+        span.select2-container {
+            width: unset !important;
+        }
+    </style>
+    <script src="/admin/webjars/AdminLTE/3.2.0/plugins/daterangepicker/daterangepicker.js"></script>
+</head>
+
+<body class="hold-transition text-sm sidebar-mini layout-fixed" id="page-top">
+<div class="wrapper">
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"
+                ><i class="fas fa-bars"></i
+                ></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="/home" class="nav-link">Home</a>
+            </li>
+        </ul>
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a
+                        class="nav-link"
+                        data-widget="control-sidebar"
+                        data-slide="true"
+                        href="#"
+                        role="button"
+                >
+                    <i class="fas fa-th-large"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <!--        !&#45;&#45;
+
+
+
+    Main Sidebar Container &ndash;&gt;-->
+
+
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="/home" class="brand-link">
+            <img
+                    src="/admin/webjars/AdminLTE/3.2.0/dist/img/AdminLTELogo.png"
+                    alt="AdminLTE Logo"
+                    class="brand-image img-circle elevation-3"
+                    style="opacity: 0.8"
+            />
+            <span class="brand-text font-weight-light">SUPPERAPP</span>
+        </a>
+
+
+        <!-- Sidebar -->
+        <div class="sidebar">'
+
+
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img
+                            src="/admin/dist/img/avatar5.png"
+                            class="img-circle elevation-2"
+                            alt="User Image"
+                    />
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">DungNT</a>
+                </div>
+            </div>
+
+
+            <!-- SidebarSearch Form -->
+            <div class="form-inline">
+                <div class="input-group" data-widget="sidebar-search">
+                    <input
+                            class="form-control form-control-sidebar"
+                            type="search"
+                            placeholder="Search"
+                            aria-label="Search"
+                    />
+                    <div class="input-group-append">
+                        <button class="btn btn-sidebar">
+                            <i class="fas fa-search fa-fw"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul
+                        class="nav nav-pills nav-sidebar flex-column nav-child-indent"
+                        data-widget="treeview"
+                        role="menu"
+                        data-accordion="false"
+                >
+
+
+                    <!-- Add icons to the links using the .nav-icon class
+                   with font-awesome or any other icon font library -->
+
+
+                    <li class="nav-item" id="li-7">
+                        <a href="#" id="#" class="nav-link">
+                            <i class="fas fa-play-circle"></i>
+                            <p>
+                                &nbsp;User Manage
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+
+
+                        <!--                            <ul class="nav nav-treeview">-->
+                        <!--                                <li class="nav-item" id="li-7-8">-->
+                        <!--                                    <a href="#" class="nav-link" id="#">-->
+                        <!--                                        &nbsp;&nbsp;&nbsp;&nbsp;<i-->
+                        <!--                                            class="bi bi-arrow-return-right"-->
+                        <!--                                    ></i>-->
+                        <!--                                        <p>&nbsp;&nbsp;Video Content</p>-->
+                        <!--                                        <i class="right fas fa-angle-left"></i>-->
+                        <!--                                    </a>-->
+
+                        <!--                                    <ul class="nav nav-treeview">-->
+                        <!--                                        <li class="nav-item" id="li-7-8-12">-->
+                        <!--                                            <a-->
+                        <!--                                                    href="/uat-cdn-admin/video/video-item/index"-->
+                        <!--                                                    class="nav-link"-->
+                        <!--                                                    id="a-7-8-12"-->
+                        <!--                                            >-->
+                        <!--                                                &nbsp;&nbsp;&nbsp;&nbsp;<i-->
+                        <!--                                                    class="bi bi-arrow-return-right"-->
+                        <!--                                            ></i>-->
+                        <!--                                                <p>&nbsp;&nbsp;List all</p>-->
+                        <!--                                            </a>-->
+                        <!--                                        </li>-->
+                        <!--                                    </ul>-->
+                        <!--                                    <ul class="nav nav-treeview">-->
+                        <!--                                        <li class="nav-item" id="li-7-8-13">-->
+                        <!--                                            <a-->
+                        <!--                                                    href="/uat-cdn-admin/video/video-item/approval/index"-->
+                        <!--                                                    class="nav-link"-->
+                        <!--                                                    id="a-7-8-13"-->
+                        <!--                                            >-->
+                        <!--                                                &nbsp;&nbsp;&nbsp;&nbsp;<i-->
+                        <!--                                                    class="bi bi-arrow-return-right"-->
+                        <!--                                            ></i>-->
+                        <!--                                                <p>&nbsp;&nbsp;Wait approval</p>-->
+                        <!--                                            </a>-->
+                        <!--                                        </li>-->
+                        <!--                                    </ul>-->
+                        <!--                                    <ul class="nav nav-treeview">-->
+                        <!--                                        <li class="nav-item" id="li-7-8-14">-->
+                        <!--                                            <a-->
+                        <!--                                                    href="/uat-cdn-admin/video/video-item/delete/index"-->
+                        <!--                                                    class="nav-link"-->
+                        <!--                                                    id="a-7-8-14"-->
+                        <!--                                            >-->
+                        <!--                                                &nbsp;&nbsp;&nbsp;&nbsp;<i-->
+                        <!--                                                    class="bi bi-arrow-return-right"-->
+                        <!--                                            ></i>-->
+                        <!--                                                <p>&nbsp;&nbsp;Deleted</p>-->
+                        <!--                                            </a>-->
+                        <!--                                        </li>-->
+                        <!--                                    </ul>-->
+                        <!--                                </li>-->
+                        <!--                            </ul>-->
+
+
+                        <!--                            <ul class="nav nav-treeview">-->
+                        <!--                                <li class="nav-item" id="li-7-9">-->
+                        <!--                                    <a href="#" class="nav-link" id="#">-->
+                        <!--                                        &nbsp;&nbsp;&nbsp;&nbsp;<i-->
+                        <!--                                            class="bi bi-arrow-return-right"-->
+                        <!--                                    ></i>-->
+                        <!--                                        <p>&nbsp;&nbsp;Channel</p>-->
+                        <!--                                        <i class="right fas fa-angle-left"></i>-->
+                        <!--                                    </a>-->
+
+                        <!--                                    <ul class="nav nav-treeview">-->
+                        <!--                                        <li class="nav-item" id="li-7-9-15">-->
+                        <!--                                            <a-->
+                        <!--                                                    href="/uat-cdn-admin/video/channel/index"-->
+                        <!--                                                    class="nav-link"-->
+                        <!--                                                    id="a-7-9-15"-->
+                        <!--                                            >-->
+                        <!--                                                &nbsp;&nbsp;&nbsp;&nbsp;<i-->
+                        <!--                                                    class="bi bi-arrow-return-right"-->
+                        <!--                                            ></i>-->
+                        <!--                                                <p>&nbsp;&nbsp;List all</p>-->
+                        <!--                                            </a>-->
+                        <!--                                        </li>-->
+                        <!--                                    </ul>-->
+                        <!--                                    <ul class="nav nav-treeview">-->
+                        <!--                                        <li class="nav-item" id="li-7-9-16">-->
+                        <!--                                            <a-->
+                        <!--                                                    href="/uat-cdn-admin/video/channel/approval/index"-->
+                        <!--                                                    class="nav-link"-->
+                        <!--                                                    id="a-7-9-16"-->
+                        <!--                                            >-->
+                        <!--                                                &nbsp;&nbsp;&nbsp;&nbsp;<i-->
+                        <!--                                                    class="bi bi-arrow-return-right"-->
+                        <!--                                            ></i>-->
+                        <!--                                                <p>&nbsp;&nbsp;Wait approval</p>-->
+                        <!--                                            </a>-->
+                        <!--                                        </li>-->
+                        <!--                                    </ul>-->
+                        <!--                                    <ul class="nav nav-treeview">-->
+                        <!--                                        <li class="nav-item" id="li-7-9-17">-->
+                        <!--                                            <a-->
+                        <!--                                                    href="/uat-cdn-admin/video/channel/list-delete/index"-->
+                        <!--                                                    class="nav-link"-->
+                        <!--                                                    id="a-7-9-17"-->
+                        <!--                                            >-->
+                        <!--                                                &nbsp;&nbsp;&nbsp;&nbsp;<i-->
+                        <!--                                                    class="bi bi-arrow-return-right"-->
+                        <!--                                            ></i>-->
+                        <!--                                                <p>&nbsp;&nbsp;Deleted</p>-->
+                        <!--                                            </a>-->
+                        <!--                                        </li>-->
+                        <!--                                    </ul>-->
+                        <!--                                </li>-->
+                        <!--                            </ul>-->
+
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item" id="li-7-11">
+                                <a
+                                        href="/admin/user"
+                                        class="nav-link"
+                                        id="a-7-10"
+                                >
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<i class="bi bi-arrow-return-right"></i>
+                                    <p>&nbsp;&nbsp;User</p>
+                                </a>
+                            </li>
+                        </ul>
+
+
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item" id="li-7-149">
+                                <a href="/admin/role" class="nav-link" id="a-7-111">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<i class="bi bi-arrow-return-right"></i>
+                                    <p>&nbsp;&nbsp;Role</p>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </li>
+
+
+                    <!--                        <li class="nav-item" id="li-147">-->
+                    <!--                            <a href="#" id="#" class="nav-link">-->
+                    <!--                                <i class="fas fa-warehouse"></i>-->
+                    <!--                                <p>-->
+                    <!--                                    &nbsp;Revenue (Doing)-->
+                    <!--                                    <i class="right fas fa-angle-left"></i>-->
+                    <!--                                </p>-->
+                    <!--                            </a>-->
+
+                    <!--                            <ul class="nav nav-treeview">-->
+                    <!--                                <li class="nav-item" id="li-147-148">-->
+                    <!--                                    <a-->
+                    <!--                                            href="/uat-cdn-admin/revenue/report/index"-->
+                    <!--                                            class="nav-link"-->
+                    <!--                                            id="a-147-148"-->
+                    <!--                                    >-->
+                    <!--                                        &nbsp;&nbsp;&nbsp;&nbsp;<i-->
+                    <!--                                            class="bi bi-arrow-return-right"-->
+                    <!--                                    ></i>-->
+                    <!--                                        <p>&nbsp;&nbsp;Report</p>-->
+                    <!--                                    </a>-->
+                    <!--                                </li>-->
+                    <!--                            </ul>-->
+                    <!--                        </li>-->
+
+
+                    <li class="nav-item">
+                        <a
+                                class="nav-link"
+                                href="#logout"
+                                data-toggle="modal"
+                                data-target="#logoutModal"
+                        >
+                            <i class="fas fa-sign-out-alt"></i>
+                            <p>Logout</p>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+
+
+            <div class="modal fade" id="logoutModal">
+                <div class="modal-dialog modal-sm-2">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Are you sure to logout?</h4>
+                            <button
+                                    type="button"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Choose &quot;Logout&quot; to out</p>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <button
+                                    type="button"
+                                    class="btn btn-default"
+                                    data-dismiss="modal"
+                            >
+                                Close
+                            </button>
+                            <a class="btn btn-primary" href="/logout">Logout đê</a>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0"></h1>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active"></li>
+                        </ol>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card card-default">
+                    <div class="card-body">
+                        <form action="/admin/user/list" method="get">
+                            <div class="h3">
+                                <h6 style="font-size: 1.25rem">Search info</h6>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-12 col-md-4 my-2">
+                                    <label for="email" style="font-weight: bold"
+                                    >Email</label
+                                    >
+                                    <input
+                                            type="text"
+                                            id="email"
+                                            th:value="${email}"
+                                            name="email"
+                                            class="form-control"
+                                            placeholder="email@gmail.com"
+                                            aria-label="Rule Name"
+                                    />
+                                </div>
+
+                                <div class="col-12 col-md-4 my-2">
+                                    <label for="name" style="font-weight: bold">Name</label>
+                                    <input
+                                            type="text"
+                                            id="name"
+                                            name="name"
+                                            th:value="${name}"
+                                            class="form-control"
+                                            placeholder="Name"
+                                            aria-label="Rule Name"
+                                    />
+                                </div>
+
+                                <input
+                                        type="text"
+                                        id="pageSizeInput"
+                                        name="pageSize"
+                                        value="10"
+                                        class="form-control"
+                                        hidden
+                                />
+
+                                <div class="col-12 col-md-4 my-2">
+                                    <label for="sdt" style="font-weight: bold"
+                                    >Phone number</label
+                                    >
+                                    <input
+                                            type="text"
+                                            id="sdt"
+                                            name="phone"
+                                            th:value="${phone}"
+                                            class="form-control"
+                                            placeholder="Phone number"
+                                    />
+                                </div>
+
+                                <div class="col-12 text-center pt-3">
+                                    <button
+                                            type="submit"
+                                            style="cursor: pointer"
+                                            class="btn btn-primary m-2"
+                                    >
+                                        <i class="fas fa-search"></i>
+                                        <span class="px-2">Search</span>
+                                    </button>
+                                    <a
+                                            href="/admin/user/create"
+                                            style="cursor: pointer"
+                                            class="m-2 btn btn-primary"
+                                    >
+                                        <i class="fas fa-plus"></i>
+                                        <span class="px-2">Create</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--Content tim kiem, tao moi-->
+
+
+            <!-- TABLE LIST-->
+            <div class="container-fluid">
+                <div class="card card-default">
+                    <div class="card-body">
+                        <h3 class="card-title">List</h3>
+
+                        <!-- list-->
+                        <div class="table_router">
+                            <table
+                                    id="contentTableData"
+                                    class="table table-bordered table-hover"
+                            >
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Phone number</th>
+                                    <th scope="col">Role</th>
+                                    <th scope="col">Partner</th>
+                                    <th scope="col">Created at</th>
+                                    <th scope="col">Updated at</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                                </thead>
+
+
+                                <tbody>
+                                <tr th:each="user, iterStat : ${users}">
+                                    <td class="text-center" th:text="${(currentPage - 1) * pageSize + iterStat.index + 1}">1</td>
+                                    <td>
+                                        <a th:href="@{'/admin/user/view/' + ${user.id}}">
+                                            <span th:text="${user.fullname}">Tên</span>
+                                        </a>
+                                    </td>
+                                    <td th:text="${user.email}">Email</td>
+                                    <td th:text="${user.phone}">Phone</td>
+                                    <td th:text="${user.roleName}">Role</td>
+                                    <td th:text="${user.partnerName}">Partner</td>
+                                    <td>
+                                        <span th:text="${#temporals.format(user.createdAt, 'dd-MM-yyyy')}">Ngày</span>
+                                        <span th:text="${#temporals.format(user.createdAt, 'HH:mm:ss')}">Giờ</span>
+                                    </td>
+
+                                    <td>
+                                        <span th:text="${#temporals.format(user.updatedAt, 'dd-MM-yyyy')}">Ngày</span>
+                                        <span th:text="${#temporals.format(user.updatedAt, 'HH:mm:ss')}">Giờ</span>
+                                    </td>
+
+
+                                    <td class="text-center">
+                                        <!-- Reset Password -->
+                                        <a class="btn"
+                                           th:attr="data-id=${user.id}, data-fullname=${user.fullname}"
+                                           onclick="resetpassword1(this.getAttribute('data-id'), this.getAttribute('data-fullname'))"
+                                           title="Đổi mật khẩu">
+                                            <i class="fa fa-key" style="cursor: pointer; color: #00709e"></i>
+                                        </a>
+
+                                        <!-- Sửa -->
+                                        <a class="btn"
+                                           th:href="@{'/admin/user/update/' + ${user.id}}"
+                                           title="Sửa">
+                                            <i class="far fa-edit" style="color: #00709e"></i>
+                                        </a>
+
+                                        <!-- Xoá -->
+                                        <form th:action="@{'/admin/user/delete/' + ${user.id}}" method="post"
+                                              style="display:inline;">
+                                            <button class="btn" type="submit" title="Xoá"
+                                                    onclick="return confirm('Xoá người dùng này?')">
+                                                <i class="fas fa-trash-alt" style="color: #ff0000"></i>
+                                            </button>
+                                        </form>
+
+                                    </td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!--ket thuc list-->
+
+                        <!-- Nếu không có kết quả thì hiển thị thông báo -->
+                        <div th:if="${totalUsers == 0}" class="text-center mt-3 alert alert-warning">
+                            Không có kết quả nào.
+                        </div>
+
+
+                        <!-- Pagination -->
+                        <div class="d-flex flex-row justify-content-end" th:if="${totalUsers > 0}">
+                            <ul class="pagination pagination-sm">
+                                <!-- << (First Page) -->
+                                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                                    <a class="page-link"
+                                       th:href="@{/admin/user/list(page=1, size=${pageSize}, name=${name}, email=${email}, phone=${phone})}">&laquo;</a>
+                                </li>
+
+                                <!-- < (Previous Page) -->
+                                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                                    <a class="page-link"
+                                       th:href="@{/admin/user/list(page=${currentPage - 1}, size=${pageSize}, name=${name}, email=${email}, phone=${phone})}">&lt;</a>
+                                </li>
+
+                                <!-- Info -->
+                                <li class="page-item disabled">
+                                    <a class="page-link text-secondary">
+                                        Page [[${currentPage}]] / [[${totalPages}]] ([[${totalUsers}]] items)
+                                    </a>
+                                </li>
+
+                                <!-- > (Next Page) -->
+                                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                                    <a class="page-link"
+                                       th:href="@{/admin/user/list(page=${currentPage + 1}, size=${pageSize}, name=${name}, email=${email}, phone=${phone})}">&gt;</a>
+                                </li>
+
+                                <!-- >> (Last Page) -->
+                                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                                    <a class="page-link"
+                                       th:href="@{/admin/user/list(page=${totalPages}, size=${pageSize}, name=${name}, email=${email}, phone=${phone})}">&raquo;</a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+            <!--ket thuc MainContent-->
+
+        </div>
+    </div>
+    <!-- conten-->
+
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <strong
+        >Copyright &copy; 2023
+            <a href="https://ringme.vn/">ringme.vn</a>.</strong
+        >
+        All rights reserved.
+        <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 2.0
+        </div>
+    </footer>
+
+</div>
+</body>
+
+
+<!--<script>-->
+<!--    function resetpassword1(userId, userName) {-->
+<!--        // Hiển thị modal đổi mật khẩu (bạn phải có sẵn modal #resetpassword trong HTML)-->
+<!--        $("#nameModal").text(userName);-->
+<!--        $("#idUser").val(userId);-->
+<!--        $("#resetpassword").modal("show");-->
+<!--    }-->
+<!--</script>-->
