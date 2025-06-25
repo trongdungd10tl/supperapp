@@ -26,7 +26,7 @@ public class UserDaoImpl implements UserDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // Truy vấn lấy toàn bộ user cùng role name và partner name
+
     @Override
     public List<UserDto> findAll() {
         String sql = """
@@ -125,6 +125,33 @@ public class UserDaoImpl implements UserDao {
     }
 
 
+    @Override
+    public void update(String id, UserUpdateDto userUpdateDto) {
+        String sql = """
+        UPDATE tbl_user 
+        SET username = ?, 
+            fullname = ?, 
+            email = ?, 
+            phone = ?, 
+            partner_id = ?,
+            category_id = ?, 
+            channel_id = ?
+        WHERE id = ?
+    """;
+
+        jdbcTemplate.update(sql,
+                userUpdateDto.getUsername(),
+                userUpdateDto.getFullname(),
+                userUpdateDto.getEmail(),
+                userUpdateDto.getPhone(),
+                userUpdateDto.getPartnerId(),
+                userUpdateDto.getCategoryId(),
+                userUpdateDto.getChannelId(),
+                id
+        );
+    }
+
+    @Override
     public Optional<UserUpdateDto> getUserUpdateAtForm(String id) {
         String sql = """
         SELECT
@@ -165,38 +192,6 @@ public class UserDaoImpl implements UserDao {
 
 
     @Override
-    public void update(String id, UserUpdateDto userUpdateDto) {
-        String sql = """
-        UPDATE tbl_user 
-        SET username = ?, 
-            fullname = ?, 
-            email = ?, 
-            phone = ?, 
-            partner_id = ?,
-            category_id = ?, 
-            channel_id = ?
-        WHERE id = ?
-    """;
-
-        jdbcTemplate.update(sql,
-                userUpdateDto.getUsername(),
-                userUpdateDto.getFullname(),
-                userUpdateDto.getEmail(),
-                userUpdateDto.getPhone(),
-                userUpdateDto.getPartnerId(),
-                userUpdateDto.getCategoryId(),
-                userUpdateDto.getChannelId(),
-                id
-        );
-    }
-
-
-
-
-
-
-
-    @Override
     public void delete(String id) {
         String deleteUserRole = "DELETE FROM tbl_user_role WHERE user_id = ?";
         jdbcTemplate.update(deleteUserRole, id);
@@ -206,19 +201,24 @@ public class UserDaoImpl implements UserDao {
     }
 
 
-
-
-
     @Override
     public List<UserDto> filterUsersWithPagination(String name, String email, String phone, int offset, int size) {
         StringBuilder sql = new StringBuilder("""
-            SELECT u.id, u.fullname, u.email, u.phone, p.name AS partnerName, r.role_name AS roleName, u.created_at, u.updated_at
-            FROM tbl_user u
-            LEFT JOIN tbl_partner_v2 p ON u.partner_id = p.id
-            LEFT JOIN tbl_user_role ur ON u.id = ur.user_id
-            LEFT JOIN tbl_role r ON ur.role_id = r.id
-            WHERE 1=1
-        """);
+        SELECT 
+            u.id,
+            u.fullname,
+            u.email,
+            u.phone,
+            p.name AS partnerName,
+            GROUP_CONCAT(r.role_name SEPARATOR ', ') AS roleName,
+            u.created_at,
+            u.updated_at
+        FROM tbl_user u
+        LEFT JOIN tbl_partner_v2 p ON u.partner_id = p.id
+        LEFT JOIN tbl_user_role ur ON u.id = ur.user_id
+        LEFT JOIN tbl_role r ON ur.role_id = r.id
+        WHERE 1=1
+    """);
 
         List<Object> params = new ArrayList<>();
         if (name != null && !name.isEmpty()) {
@@ -234,7 +234,7 @@ public class UserDaoImpl implements UserDao {
             params.add("%" + phone + "%");
         }
 
-        sql.append(" ORDER BY u.created_at DESC LIMIT ? OFFSET ?");
+        sql.append(" GROUP BY u.id ORDER BY u.created_at DESC LIMIT ? OFFSET ?");
         params.add(size);
         params.add(offset);
 
@@ -245,12 +245,13 @@ public class UserDaoImpl implements UserDao {
             dto.setEmail(rs.getString("email"));
             dto.setPhone(rs.getString("phone"));
             dto.setPartnerName(rs.getString("partnerName"));
-            dto.setRoleName(rs.getString("roleName"));
+            dto.setRoleName(rs.getString("roleName")); // danh sách role nối lại
             dto.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
             dto.setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime());
             return dto;
         });
     }
+
 
     @Override
     public int countUsersWithFilter(String name, String email, String phone) {
@@ -271,6 +272,13 @@ public class UserDaoImpl implements UserDao {
         }
 
         return jdbcTemplate.queryForObject(sql.toString(), params.toArray(), Integer.class);
+    }
+
+
+    @Override
+    public void updatePassword(String userId, String encodedPassword) {
+        String sql = "UPDATE tbl_user SET password = ?, updated_at = ? WHERE id = ?";
+        jdbcTemplate.update(sql, encodedPassword, LocalDateTime.now(), userId);
     }
 
 }

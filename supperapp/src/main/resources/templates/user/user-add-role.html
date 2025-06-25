@@ -430,73 +430,80 @@
     <div class="content">
       <div class="container-fluid">
         <div class="card card-default">
-
           <div class="card-body">
 
+            <!-- USER INFO -->
             <div class="d-flex flex-row">
               <table class="table table-striped">
                 <tbody>
                 <tr>
                   <td style="font-weight: bold;">User name</td>
-                  <td colspan="2">Much Ado About Nothing bbbb</td>
+                  <td colspan="2" th:text="${user.fullname}">User Name</td>
                 </tr>
                 <tr>
                   <td style="font-weight: bold;">Email</td>
-                  <td colspan="2">admin@1.com</td>
+                  <td colspan="2" th:text="${user.email}">Email</td>
                 </tr>
                 </tbody>
               </table>
             </div>
-            <div class="d-flex flex-row ">
+
+            <!-- ROLE ASSIGN UI -->
+            <div class="d-flex flex-row">
+
+              <!-- AVAILABLE ROLES -->
               <div class="d-flex flex-column col-5 text-center">
                 <div class="table_router_left">
                   <input type="text" id="myInput1" class="form-control" onkeyup="searchFunction1()" placeholder="Search permission...">
                   <br>
-                  <form action="/uat-cdn-admin/sys/user-role/create" method="post" id="formActive">
-                    <input name="id" hidden readonly id="id" value="48">
-                    <select id="mySelect1"  class="form-control"  size="20" name="role1" multiple>
-                      <option value="28">ROLE_MINIAPPP</option>
-                      <option value="30">ROLE_MPS_PACKAGE_PARTNER</option>
-                      <option value="29">ROLE_MPS_PACKAGE_REVIEWER</option>
-                      <option value="27">ROLE_MINIAPP_REVIEWER</option>
-                      <option value="24">ROLE_MINIAPP_PARTNER</option>
-                      <option value="26">ROLE_LUMITEL-ADMIN</option>
-                      <option value="21">ROLE_APPROVAL-VIDEO</option>
-                      <option value="22">ROLE_HOME-CONFIG</option>
-                      <option value="2">ROLE_VIDEO</option>
+                  <form th:action="@{/admin/add-role/create}" method="post" id="formActive">
+                    <input type="hidden" name="id" th:value="${user.id}" />
+                    <select id="mySelect1" class="form-control" size="20" name="role1" multiple  onchange="unselectRemove()">
+                      <option th:if="${#lists.isEmpty(availableRoles)}" disabled>Danh sách trống</option>
+                      <option th:each="role : ${availableRoles}" th:value="${role.id}" th:text="${role.name}"></option>
                     </select>
                   </form>
                 </div>
               </div>
+
+              <!-- ARROWS -->
               <div class="d-flex flex-column col-2 text-center align-self-center">
-                <button type="submit" id="arrow_forward" onclick="submit1()">
+                <button type="button"
+                        id="arrow_forward"
+                        onclick="handleAdd()">
                   <i class="fa-solid fa-arrow-right"></i>
                 </button>
                 <br>
-                <button type="submit" id="arrow_back" onclick="submit2()">
+                <button type="button"
+                        id="arrow_back"
+                        onclick="handleRemove()">
                   <i class="fa-solid fa-arrow-left"></i>
                 </button>
               </div>
+
+              <!-- ASSIGNED ROLES -->
               <div class="d-flex flex-column col-5">
                 <div class="table_router_right">
                   <input type="text" id="myInput2" class="form-control" onkeyup="searchFunction2()" placeholder="Search permission to be added...">
                   <br>
-                  <form action="/uat-cdn-admin/sys/user-role/delete" method="post" id="formUnActive">
-                    <input name="id" hidden readonly id="id" value="48">
-                    <select id="mySelect2" name="role2" class="form-control" size="20" multiple>
-                      <option value="67">ROLE_ADMIN</option>
+                  <form th:action="@{/admin/add-role/delete}" method="post" id="formUnActive">
+                    <input type="hidden" name="id" th:value="${user.id}" />
+                    <select id="mySelect2" class="form-control" size="20" name="role2" multiple onchange="unselectAdd()">
+                      <option th:if="${#lists.isEmpty(assignedRoles)}" disabled>Danh sách trống</option>
+                      <option th:each="role : ${assignedRoles}" th:value="${role.id}" th:text="${role.name}"></option>
                     </select>
                   </form>
                 </div>
               </div>
+
             </div>
-          </div>
-          <!-- /.card-body -->
-        </div>
-        <!-- /.container-fluid -->
-      </div>
-      <!-- /.content -->
-    </div>
+          </div> <!-- /.card-body -->
+        </div> <!-- /.card -->
+      </div> <!-- /.container-fluid -->
+    </div> <!-- /.content -->
+
+
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -518,11 +525,96 @@
 </body>
 
 
-<!--<script>-->
-<!--    function resetpassword1(userId, userName) {-->
-<!--        // Hiển thị modal đổi mật khẩu (bạn phải có sẵn modal #resetpassword trong HTML)-->
-<!--        $("#nameModal").text(userName);-->
-<!--        $("#idUser").val(userId);-->
-<!--        $("#resetpassword").modal("show");-->
-<!--    }-->
-<!--</script>-->
+<script>
+  function searchFunction1() {
+    let input = document.getElementById("myInput1").value.toUpperCase();
+    let options = document.getElementById("mySelect1").options;
+    for (let i = 0; i < options.length; i++) {
+      let txt = options[i].text.toUpperCase();
+      options[i].style.display = txt.includes(input) ? "" : "none";
+    }
+  }
+
+  function searchFunction2() {
+    let input = document.getElementById("myInput2").value.toUpperCase();
+    let options = document.getElementById("mySelect2").options;
+    for (let i = 0; i < options.length; i++) {
+      let txt = options[i].text.toUpperCase();
+      options[i].style.display = txt.includes(input) ? "" : "none";
+    }
+  }
+
+  function submit1() {
+    document.getElementById("formActive").submit();
+  }
+
+  function submit2() {
+    document.getElementById("formUnActive").submit();
+  }
+
+
+
+</script>
+
+<!-- SCRIPT -->
+<!-- Thêm vào phần <head> hoặc trước </body> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  const selectAdd = document.getElementById('mySelect1');
+  const selectRemove = document.getElementById('mySelect2');
+  const formAdd = document.getElementById('formActive');
+  const formRemove = document.getElementById('formUnActive');
+
+  function showError(message) {
+    Swal.fire({
+      icon: 'error',
+      title: message,
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 2500
+    });
+  }
+
+  function handleAdd() {
+    if (selectAdd.selectedOptions.length > 0) {
+      if (selectRemove.selectedOptions.length > 0) {
+        showError("Vui lòng bỏ chọn quyền muốn xóa nếu muốn thêm quyền.");
+        return;
+      }
+      formAdd.submit();
+    } else {
+      showError("Vui lòng chọn một quyền muốn thêm!");
+    }
+  }
+
+  function handleRemove() {
+    if (selectRemove.selectedOptions.length > 0) {
+      if (selectAdd.selectedOptions.length > 0) {
+        showError("Vui lòng bỏ chọn quyền muốn thêm nếu muốn xóa quyền.");
+        return;
+      }
+      formRemove.submit();
+    } else {
+      showError("Vui lòng chọn một quyền muốn bỏ!");
+    }
+  }
+</script>
+
+<script>
+  function unselectRemove() {
+    const removeSelect = document.getElementById("mySelect2");
+    for (let option of removeSelect.options) {
+      option.selected = false;
+    }
+  }
+
+  function unselectAdd() {
+    const addSelect = document.getElementById("mySelect1");
+    for (let option of addSelect.options) {
+      option.selected = false;
+    }
+  }
+</script>
+

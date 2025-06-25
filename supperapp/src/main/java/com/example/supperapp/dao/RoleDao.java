@@ -1,9 +1,12 @@
 package com.example.supperapp.dao;
 
+import com.example.supperapp.dto.RoleDto;
+
 import java.util.List;
 
 public interface RoleDao {
-    void addRolesToUser(String userId, List<String> roleIds);
-    void removeRolesFromUser(String userId, List<String> roleIds);
+    List<RoleDto> findRolesByUserId(String userId);
+    List<RoleDto> findAll();
+    void addUserRole(String userId, String roleId);
+    void removeUserRole(String userId, String roleId);
 }
-

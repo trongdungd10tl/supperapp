@@ -25,4 +25,5 @@ public interface UserDao {
 
     int countUsersWithFilter(String name, String email, String phone);
 
+    void updatePassword(String userId, String encodedPassword);
 }

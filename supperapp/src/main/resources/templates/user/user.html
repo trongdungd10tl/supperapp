@@ -550,7 +550,7 @@
                                 <tr th:each="user, iterStat : ${users}">
                                     <td class="text-center" th:text="${(currentPage - 1) * pageSize + iterStat.index + 1}">1</td>
                                     <td>
-                                        <a th:href="@{'/admin/user/view/' + ${user.id}}">
+                                        <a th:href="@{'/admin/add-role/user/' + ${user.id}}">
                                             <span th:text="${user.fullname}">Tên</span>
                                         </a>
                                     </td>
@@ -655,6 +655,40 @@
             </div>
             <!--ket thuc MainContent-->
 
+            <div class="modal fade" id="resetpassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content p-4">
+                        <div class="modal-header p-0">
+                            <div class="router_title my-0">
+                                <h3>Update password</h3>
+                            </div>
+                        </div>
+                        <div class="modal-body p-0">
+                            <div class="col px-0 mt-3">
+                                <h4 style="font-weight: bold;color: #00709E;" id="nameModal"></h4>
+                            </div>
+                            <form action="/admin/user/resetpassword" id="resetpasswordform" method="POST" onsubmit="return validatePassword()">
+                                <input type="hidden" name="userId" id="userId">
+                                <div class="col px-0 mb-3 pt-4">
+                                    <label for="passnew" style="font-weight: bold">New password</label>
+                                    <input type="password" id="passnew" name="passwordnew" class="form-control" required>
+                                </div>
+                                <div class="col px-0 mb-3 pt-4">
+                                    <label for="retail" style="font-weight: bold">Confirm password</label>
+                                    <input type="password" id="retail" name="passwordnew2" class="form-control" required>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
         </div>
     </div>
     <!-- conten-->
@@ -676,11 +710,56 @@
 </body>
 
 
-<!--<script>-->
-<!--    function resetpassword1(userId, userName) {-->
-<!--        // Hiển thị modal đổi mật khẩu (bạn phải có sẵn modal #resetpassword trong HTML)-->
-<!--        $("#nameModal").text(userName);-->
-<!--        $("#idUser").val(userId);-->
-<!--        $("#resetpassword").modal("show");-->
-<!--    }-->
-<!--</script>-->
+<script>
+    function resetpassword1(userId, fullname) {
+    Swal.fire({
+        title: 'Xác nhận',
+        text: `Đặt lại mật khẩu cho "${fullname}"?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Đồng ý',
+        cancelButtonText: 'Hủy'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Gửi AJAX để reset password
+            $.ajax({
+                url: '/admin/user/reset-password/' + userId,
+                type: 'POST',
+                success: function (response) {
+                    Swal.fire('Thành công', 'Mật khẩu đã được đặt lại.', 'success');
+                },
+                error: function () {
+                    Swal.fire('Lỗi', 'Không thể đặt lại mật khẩu.', 'error');
+                }
+            });
+        }
+    });
+}
+</script>
+
+<script>
+    function resetpassword1(userId, fullname) {
+      document.getElementById("userId").value = userId;
+      document.getElementById("nameModal").innerText = fullname;
+      $('#resetpassword').modal('show');
+    }
+
+    function validatePassword() {
+      const pass1 = document.getElementById("passnew").value;
+      const pass2 = document.getElementById("retail").value;
+
+      if (pass1 !== pass2) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Mật khẩu xác nhận không khớp!',
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2500
+        });
+        return false; // ngăn submit
+      }
+
+      return true;
+    }
+</script>

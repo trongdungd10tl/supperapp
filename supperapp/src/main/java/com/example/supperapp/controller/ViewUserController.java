@@ -4,9 +4,12 @@ import com.example.supperapp.dto.UserDto;
 import com.example.supperapp.dto.UserUpdateDto;
 import com.example.supperapp.model.User;
 import com.example.supperapp.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,23 +29,39 @@ public class ViewUserController {
         return "redirect:/admin/user/list?page=1&size=10";
     }
 
-//    @GetMapping
-//    public String listUsers(Model model) {
-//        List<UserDto> users = userService.getAllUser();
-//        model.addAttribute("users", users);
-//        return "user";
-//    }
+    @PostMapping("/resetpassword")
+    public String resetPassword(
+            @RequestParam("userId") String userId,
+            @RequestParam("passwordnew") String password,
+            @RequestParam("passwordnew2") String confirmPassword,
+            RedirectAttributes redirectAttributes) {
+
+        if (!password.equals(confirmPassword)) {
+            redirectAttributes.addFlashAttribute("errorMessage", "❌ Mật khẩu xác nhận không khớp!");
+            return "redirect:/admin/user";
+        }
+
+        try {
+            userService.updatePassword(userId, password);
+            redirectAttributes.addFlashAttribute("successMessage", "✅ Đổi mật khẩu thành công!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorMessage", "❌ Lỗi khi cập nhật mật khẩu!");
+        }
+
+        return "redirect:/admin/user";
+    }
+
 
 
     @GetMapping("/update/{id}")
     public String getUserUpdateAtForm(@PathVariable String id, Model model) {
         // Lấy ra đối tượng
-        UserUpdateDto dto = userService.getUserUpdateAtForm(id)
+        UserUpdateDto userUpdateDto = userService.getUserUpdateAtForm(id)
                 .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy user với id = " + id));
 
-        // Truyền dto vào Thymeleaf
-        model.addAttribute("userUpdateDto", dto);
-        return "user/user-update"; // Trả về trang update
+        model.addAttribute("userUpdateDto", userUpdateDto);
+        return "user/user-update";
     }
 
 
@@ -108,10 +127,6 @@ public class ViewUserController {
     }
 
 
-//    @GetMapping("/view")
-//    public String AddRole(){
-//        return "User-add-role";
-//    }
 
 
 }

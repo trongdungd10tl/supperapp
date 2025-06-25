@@ -1,39 +1,48 @@
 package com.example.supperapp.dao.impl;
 
 import com.example.supperapp.dao.RoleDao;
+import com.example.supperapp.dto.RoleDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class RoleDaoImpl implements RoleDao {
 
-    private final JdbcTemplate jdbcTemplate;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
-    public RoleDaoImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    @Override
+    public List<RoleDto> findRolesByUserId(String userId) {
+        String sql = """
+    SELECT r.id, r.role_name
+    FROM tbl_role r
+    INNER JOIN tbl_user_role ur ON r.id = ur.role_id
+    WHERE ur.user_id = ?
+""";
+
+        return jdbcTemplate.query(sql, new Object[]{userId}, (rs, rowNum) ->
+                new RoleDto(rs.getString("id"), rs.getString("role_name")));
     }
 
     @Override
-    public void addRolesToUser(String userId, List<String> roleIds) {
-        String sql = "INSERT INTO tbl_user_role (user_id, role_id) VALUES (?, ?) ON CONFLICT DO NOTHING";
-        List<Object[]> batchArgs = new ArrayList<>();
-        for (String roleId : roleIds) {
-            batchArgs.add(new Object[]{userId, roleId});
-        }
-        jdbcTemplate.batchUpdate(sql, batchArgs);
+    public List<RoleDto> findAll() {
+        String sql = "SELECT id, role_name FROM tbl_role";
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                new RoleDto(rs.getString("id"), rs.getString("role_name")));
     }
 
     @Override
-    public void removeRolesFromUser(String userId, List<String> roleIds) {
+    public void addUserRole(String userId, String roleId) {
+        String sql = "INSERT INTO tbl_user_role (user_id, role_id) VALUES (?, ?)";
+        jdbcTemplate.update(sql, userId, roleId);
+    }
+
+    @Override
+    public void removeUserRole(String userId, String roleId) {
         String sql = "DELETE FROM tbl_user_role WHERE user_id = ? AND role_id = ?";
-        List<Object[]> batchArgs = new ArrayList<>();
-        for (String roleId : roleIds) {
-            batchArgs.add(new Object[]{userId, roleId});
-        }
-        jdbcTemplate.batchUpdate(sql, batchArgs);
+        jdbcTemplate.update(sql, userId, roleId);
     }
 }
-

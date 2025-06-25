@@ -5,6 +5,8 @@ import com.example.supperapp.dto.UserDto;
 import com.example.supperapp.dto.UserUpdateDto;
 import com.example.supperapp.model.User;
 import com.example.supperapp.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +16,9 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
@@ -58,4 +63,10 @@ public class UserServiceImpl implements UserService {
         return userDao.countUsersWithFilter(name, email, phone);
     }
 
+
+    @Override
+    public void updatePassword(String userId, String newPassword) {
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        userDao.updatePassword(userId, encodedPassword);
+    }
 }
