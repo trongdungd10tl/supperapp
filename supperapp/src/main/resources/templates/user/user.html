@@ -737,29 +737,29 @@
 }
 </script>
 
-<script>
-    function resetpassword1(userId, fullname) {
-      document.getElementById("userId").value = userId;
-      document.getElementById("nameModal").innerText = fullname;
-      $('#resetpassword').modal('show');
-    }
+<!--<script>-->
+<!--    function resetpassword1(userId, fullname) {-->
+<!--      document.getElementById("userId").value = userId;-->
+<!--      document.getElementById("nameModal").innerText = fullname;-->
+<!--      $('#resetpassword').modal('show');-->
+<!--    }-->
 
-    function validatePassword() {
-      const pass1 = document.getElementById("passnew").value;
-      const pass2 = document.getElementById("retail").value;
+<!--    function validatePassword() {-->
+<!--      const pass1 = document.getElementById("passnew").value;-->
+<!--      const pass2 = document.getElementById("retail").value;-->
 
-      if (pass1 !== pass2) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Mật khẩu xác nhận không khớp!',
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 2500
-        });
-        return false; // ngăn submit
-      }
+<!--      if (pass1 !== pass2) {-->
+<!--        Swal.fire({-->
+<!--          icon: 'error',-->
+<!--          title: 'Mật khẩu xác nhận không khớp!',-->
+<!--          toast: true,-->
+<!--          position: 'top-end',-->
+<!--          showConfirmButton: false,-->
+<!--          timer: 2500-->
+<!--        });-->
+<!--        return false; // ngăn submit-->
+<!--      }-->
 
-      return true;
-    }
-</script>
+<!--      return true;-->
+<!--    }-->
+<!--</script>-->

@@ -35,11 +35,14 @@ public class SecurityConfig {
                                 "/css/**",
                                 "/js/**",
                                 "/images/**"
+
+
+
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")                  // Trang login do mình tạo
+                        .loginPage("/login")                  // Trang login
                         .loginProcessingUrl("/login")         // Form submit về đây
                         .defaultSuccessUrl("/home", true)     // Sau khi login thành công
                         .failureUrl("/login?error=true")      // Khi login lỗi

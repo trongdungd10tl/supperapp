@@ -37,16 +37,16 @@ public class ViewUserController {
             RedirectAttributes redirectAttributes) {
 
         if (!password.equals(confirmPassword)) {
-            redirectAttributes.addFlashAttribute("errorMessage", "❌ Mật khẩu xác nhận không khớp!");
+            redirectAttributes.addFlashAttribute("errorMessage", "Mật khẩu xác nhận không khớp!");
             return "redirect:/admin/user";
         }
 
         try {
             userService.updatePassword(userId, password);
-            redirectAttributes.addFlashAttribute("successMessage", "✅ Đổi mật khẩu thành công!");
+            redirectAttributes.addFlashAttribute("successMessage", "Đổi mật khẩu thành công!");
         } catch (Exception e) {
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("errorMessage", "❌ Lỗi khi cập nhật mật khẩu!");
+            redirectAttributes.addFlashAttribute("errorMessage", "Lỗi khi cập nhật mật khẩu!");
         }
 
         return "redirect:/admin/user";
@@ -56,7 +56,6 @@ public class ViewUserController {
 
     @GetMapping("/update/{id}")
     public String getUserUpdateAtForm(@PathVariable String id, Model model) {
-        // Lấy ra đối tượng
         UserUpdateDto userUpdateDto = userService.getUserUpdateAtForm(id)
                 .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy user với id = " + id));
 
@@ -125,8 +124,6 @@ public class ViewUserController {
 
         return "/user/user";
     }
-
-
 
 
 }
