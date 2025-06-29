@@ -710,56 +710,56 @@
 </body>
 
 
-<script>
-    function resetpassword1(userId, fullname) {
-    Swal.fire({
-        title: 'Xác nhận',
-        text: `Đặt lại mật khẩu cho "${fullname}"?`,
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Đồng ý',
-        cancelButtonText: 'Hủy'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Gửi AJAX để reset password
-            $.ajax({
-                url: '/admin/user/reset-password/' + userId,
-                type: 'POST',
-                success: function (response) {
-                    Swal.fire('Thành công', 'Mật khẩu đã được đặt lại.', 'success');
-                },
-                error: function () {
-                    Swal.fire('Lỗi', 'Không thể đặt lại mật khẩu.', 'error');
-                }
-            });
-        }
-    });
-}
-</script>
-
 <!--<script>-->
 <!--    function resetpassword1(userId, fullname) {-->
-<!--      document.getElementById("userId").value = userId;-->
-<!--      document.getElementById("nameModal").innerText = fullname;-->
-<!--      $('#resetpassword').modal('show');-->
-<!--    }-->
-
-<!--    function validatePassword() {-->
-<!--      const pass1 = document.getElementById("passnew").value;-->
-<!--      const pass2 = document.getElementById("retail").value;-->
-
-<!--      if (pass1 !== pass2) {-->
-<!--        Swal.fire({-->
-<!--          icon: 'error',-->
-<!--          title: 'Mật khẩu xác nhận không khớp!',-->
-<!--          toast: true,-->
-<!--          position: 'top-end',-->
-<!--          showConfirmButton: false,-->
-<!--          timer: 2500-->
-<!--        });-->
-<!--        return false; // ngăn submit-->
-<!--      }-->
-
-<!--      return true;-->
-<!--    }-->
+<!--    Swal.fire({-->
+<!--        title: 'Xác nhận',-->
+<!--        text: `Đặt lại mật khẩu cho "${fullname}"?`,-->
+<!--        icon: 'question',-->
+<!--        showCancelButton: true,-->
+<!--        confirmButtonText: 'Đồng ý',-->
+<!--        cancelButtonText: 'Hủy'-->
+<!--    }).then((result) => {-->
+<!--        if (result.isConfirmed) {-->
+<!--            // Gửi AJAX để reset password-->
+<!--            $.ajax({-->
+<!--                url: '/admin/user/reset-password/' + userId,-->
+<!--                type: 'POST',-->
+<!--                success: function (response) {-->
+<!--                    Swal.fire('Thành công', 'Mật khẩu đã được đặt lại.', 'success');-->
+<!--                },-->
+<!--                error: function () {-->
+<!--                    Swal.fire('Lỗi', 'Không thể đặt lại mật khẩu.', 'error');-->
+<!--                }-->
+<!--            });-->
+<!--        }-->
+<!--    });-->
+<!--}-->
 <!--</script>-->
+
+<script>
+    function resetpassword1(userId, fullname) {
+      document.getElementById("userId").value = userId;
+      document.getElementById("nameModal").innerText = fullname;
+      $('#resetpassword').modal('show');
+    }
+
+    function validatePassword() {
+      const pass1 = document.getElementById("passnew").value;
+      const pass2 = document.getElementById("retail").value;
+
+      if (pass1 !== pass2) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Mật khẩu xác nhận không khớp!',
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2500
+        });
+        return false; // ngăn submit
+      }
+
+      return true;
+    }
+</script>

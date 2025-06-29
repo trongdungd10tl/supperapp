@@ -37,6 +37,9 @@ public class SecurityConfig {
                                 "/images/**"
 
 
+                                
+
+
 
                         ).permitAll()
                         .anyRequest().authenticated()
